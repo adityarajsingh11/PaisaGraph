@@ -24,7 +24,17 @@ export const registerUser = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.redirect("/api/home");
+    return res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+      token,
+    });
+
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: "Server error during registration" });
@@ -51,7 +61,18 @@ export const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.redirect("/api/home");
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+      token,
+    });
+
+
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Server error during login" });

@@ -21,7 +21,14 @@ export const createTransaction = async (req, res) => {
     });
 
     await newTransaction.save();
-    res.redirect("/api/home");
+
+    return res.status(201).json({
+      success: true,
+      message: "Transaction created successfully",
+      data: newTransaction,
+    });
+
+    
   } catch (error) {
     console.error("Create Transaction Error:", error.message);
     res
@@ -41,6 +48,7 @@ export const getTransactions = async (req, res) => {
       count: transactions.length,
       data: transactions,
     });
+
   } catch (error) {
     console.error("Get Transactions Error:", error.message);
     res
@@ -72,11 +80,13 @@ export const updateTransaction = async (req, res) => {
       message: "Transaction updated successfully",
       data: transaction,
     });
+
   } catch (error) {
-    console.error("Update Transaction Error:", error.message);
-    res
-      .status(500)
-      .json({ message: "Server error while updating transaction" });
+    console.error("❌ Update Transaction Error:", error);
+    res.status(500).json({ 
+      message: "Server error while updating transaction", 
+      error: error.message 
+    });
   }
 };
 
@@ -101,6 +111,7 @@ export const deleteTransaction = async (req, res) => {
       success: true,
       message: "Transaction deleted successfully",
     });
+
   } catch (error) {
     console.error("Delete Transaction Error:", error.message);
     res
