@@ -9,13 +9,18 @@ function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [summary, setSummary] = useState({ income: 0, expense: 0, balance: 0 });
 
-  const load = async () => {
+ const load = async () => {
+  try {
     const res = await api.get("/transactions");
-    setTransactions(res.data.data || []);
+    setTransactions(res.data.transactions || res.data.data || []);
 
     const summaryRes = await api.get("/transactions/summary");
-    setSummary(summaryRes.data.data);
-  };
+    setSummary(summaryRes.data.summary || res.data.data || {});
+  } catch (err) {
+    console.error("Error loading dashboard:", err);
+  }
+};
+
 
   useEffect(() => {
     load();
