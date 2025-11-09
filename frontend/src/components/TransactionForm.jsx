@@ -5,11 +5,16 @@ function TransactionForm({ onAdd }) {
   const [form, setForm] = useState({ title: "", category: "", amount: "", type: "expense" });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await api.post("/transactions", form);
-    onAdd();
+  e.preventDefault();
+  try {
+    await api.post("/transactions", form); // wait for backend to confirm
     setForm({ title: "", category: "", amount: "", type: "expense" });
-  };
+    onAdd(); // trigger reload after successful save
+  } catch (err) {
+    console.error("Error adding transaction:", err);
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-4 shadow rounded-xl space-y-4">
