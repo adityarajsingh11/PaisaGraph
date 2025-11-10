@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
   const logoutUser = () => {
     setUser(null);
     localStorage.removeItem("user");
-    window.location.href = "/login"; // optional redirect
+    window.location.href = "/"; // optional redirect
   };
 
   return (

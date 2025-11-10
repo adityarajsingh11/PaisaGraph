@@ -1,146 +1,14 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const Login = () => {
-//   const [showPass, setShowPass] = useState(false);
-//   const navigate = useNavigate();
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     navigate("/dashboard");
-//   };
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-400 via-blue-400 to-red-400 bg-[length:400%_400%] animate-[gradientShift_15s_ease_infinite] px-4">
-//       <div className="relative w-full max-w-md bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 space-y-6 animate-[slideIn_0.6s_ease-out]">
-//         <div className="text-center">
-//           <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center mb-4">
-//             <svg
-//               className="w-7 h-7 text-white"
-//               fill="none"
-//               stroke="currentColor"
-//               viewBox="0 0 24 24"
-//             >
-//               <path
-//                 strokeLinecap="round"
-//                 strokeLinejoin="round"
-//                 strokeWidth="2"
-//                 d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-//               />
-//             </svg>
-//           </div>
-//           <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-//             Welcome Back
-//           </h1>
-//           <p className="text-gray-500 text-sm mt-1">
-//             Sign in to continue managing your finances
-//           </p>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="space-y-4">
-//           <input
-//             type="text"
-//             placeholder="Username"
-//             required
-//             className="w-full p-3 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-pink-400 focus:border-pink-400 outline-none text-sm"
-//           />
-//           <div className="relative">
-//             <input
-//               type={showPass ? "text" : "password"}
-//               placeholder="Password"
-//               required
-//               className="w-full p-3 rounded-xl border-2 border-gray-200 focus:ring-2 focus:ring-pink-400 focus:border-pink-400 outline-none text-sm pr-10"
-//             />
-//             <button
-//               type="button"
-//               onClick={() => setShowPass(!showPass)}
-//               className="absolute right-3 top-3 text-gray-400 hover:text-pink-500"
-//             >
-//               {showPass ? (
-//                 <svg
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   className="w-5 h-5"
-//                   fill="none"
-//                   viewBox="0 0 24 24"
-//                   stroke="currentColor"
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="2"
-//                     d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242"
-//                   />
-//                 </svg>
-//               ) : (
-//                 <svg
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   className="w-5 h-5"
-//                   fill="none"
-//                   viewBox="0 0 24 24"
-//                   stroke="currentColor"
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="2"
-//                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-//                   />
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     strokeWidth="2"
-//                     d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S3.732 16.057 2.458 12z"
-//                   />
-//                 </svg>
-//               )}
-//             </button>
-//           </div>
-
-//           <button
-//             type="submit"
-//             className="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-pink-500 to-red-500 hover:scale-[1.02] transition-transform"
-//           >
-//             Sign In
-//           </button>
-
-//           <p className="text-sm text-center text-gray-500">
-//             Don’t have an account?{" "}
-//             <a
-//               href="/register"
-//               className="text-pink-600 hover:underline font-semibold"
-//             >
-//               Create one
-//             </a>
-//           </p>
-//         </form>
-//       </div>
-
-//       {/* Keyframe Animations */}
-//       <style>{`
-//         @keyframes gradientShift {
-//           0%,100% { background-position: 0% 50%; }
-//           50% { background-position: 100% 50%; }
-//         }
-//         @keyframes slideIn {
-//           from { opacity: 0; transform: translateY(30px); }
-//           to { opacity: 1; transform: translateY(0); }
-//         }
-//       `}</style>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../utils/axiosConfig";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { UserContext } from "../context/UserContext";
+import api from "../utils/axiosConfig";
+import { Wallet, BarChart3, TrendingUp } from "lucide-react";
 
-const Login = () => {
-  const [showPass, setShowPass] = useState(false);
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { loginUser } = useContext(UserContext);
@@ -148,70 +16,122 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     try {
       const res = await api.post("/user/login", { username, password });
-
       if (res.data.success) {
-        // ✅ Update context and localStorage
         loginUser(res.data.user);
-        navigate("/");
-      }
+        navigate("/dashboard");
+      } else setError("Invalid credentials");
     } catch (err) {
-      console.error(err);
       setError(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-400 via-blue-400 to-red-400 px-4">
-      <div className="relative w-full max-w-md bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-2xl p-8 space-y-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
-            Welcome Back
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">Sign in to continue</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="w-full max-w-5xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+      >
+        {/* LEFT SIDE */}
+        <div className="md:w-1/2 flex flex-col justify-center items-center text-center p-10 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 text-white relative">
+          <h2 className="text-4xl font-extrabold mb-3">Welcome Back!</h2>
+          <p className="text-indigo-100 mb-10 max-w-sm">
+            Log in to your PaisaGraph account and stay on top of your expenses & savings with interactive charts.
+          </p>
+
+          {/* Floating Icons */}
+          <div className="flex gap-10">
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+              className="bg-white text-indigo-600 p-4 rounded-full shadow-lg"
+            >
+              <Wallet size={32} />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3, delay: 0.4 }}
+              className="bg-white text-indigo-600 p-4 rounded-full shadow-lg"
+            >
+              <BarChart3 size={32} />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3, delay: 0.8 }}
+              className="bg-white text-indigo-600 p-4 rounded-full shadow-lg"
+            >
+              <TrendingUp size={32} />
+            </motion.div>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="w-full p-3 rounded-xl border-2 border-gray-200 outline-none text-sm"
-          />
-          <div className="relative">
-            <input
-              type={showPass ? "text" : "password"}
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full p-3 rounded-xl border-2 border-gray-200 outline-none text-sm pr-10"
-            />
+        {/* RIGHT SIDE (Form) */}
+        <div className="md:w-1/2 p-10 bg-white flex flex-col justify-center text-gray-800">
+          <h2 className="text-3xl font-bold text-center mb-6 text-indigo-700">
+            Login to PaisaGraph
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-indigo-700">
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="w-full p-3 rounded-xl border-2 border-indigo-200 bg-indigo-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                placeholder="Enter username"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-indigo-700">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full p-3 rounded-xl border-2 border-indigo-200 bg-indigo-50 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  placeholder="Enter password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-4 top-3 text-gray-400 hover:text-indigo-600"
+                >
+                  {showPass ? "🙈" : "👁️"}
+                </button>
+              </div>
+            </div>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
             <button
-              type="button"
-              onClick={() => setShowPass(!showPass)}
-              className="absolute right-3 top-3 text-gray-400 hover:text-pink-500"
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-md hover:scale-[1.03] transition-transform"
             >
-              👁
+              Sign In
             </button>
-          </div>
+          </form>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-pink-500 to-red-500"
-          >
-            Sign In
-          </button>
-        </form>
-      </div>
+          <p className="text-center text-sm text-gray-600 mt-6">
+            Don’t have an account?{" "}
+            <Link
+              to="/register"
+              className="text-indigo-600 font-medium hover:underline"
+            >
+              Register now
+            </Link>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
-};
-
-export default Login;
+}

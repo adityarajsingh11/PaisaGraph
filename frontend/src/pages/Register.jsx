@@ -1,266 +1,153 @@
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-
-// const Register = () => {
-//   const [showPassword, setShowPassword] = useState(false);
-
-//   return (
-//     <div className="animated-gradient min-h-screen flex items-center justify-center px-4 py-8 relative overflow-hidden">
-//       {/* Floating Blobs */}
-//       <div className="fixed top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-3xl animate-bounce" />
-//       <div className="fixed bottom-20 right-10 w-40 h-40 bg-purple-300/20 rounded-full blur-3xl animate-pulse" />
-//       <div className="fixed top-1/2 right-1/4 w-24 h-24 bg-blue-300/20 rounded-full blur-3xl animate-bounce" />
-
-//       {/* Card */}
-//       <div className="w-full max-w-md bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-8 sm:p-10 relative z-10">
-//         {/* Header */}
-//         <div className="text-center mb-8">
-//           <div className="bg-gradient-to-r from-blue-600 to-purple-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-//             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-//                 d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-//             </svg>
-//           </div>
-//           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-//             Create Account
-//           </h1>
-//           <p className="text-gray-500 text-sm mt-1">Join us to track your finances</p>
-//         </div>
-
-//         {/* Form */}
-//         <form action="/api/user/register" method="POST" className="space-y-5">
-//           <div>
-//             <label className="block mb-1 text-sm font-semibold text-gray-700">Username</label>
-//             <input
-//               type="text"
-//               name="username"
-//               placeholder="johndoe"
-//               required
-//               className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-//             />
-//           </div>
-
-//           <div>
-//             <label className="block mb-1 text-sm font-semibold text-gray-700">Email</label>
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="john.doe@example.com"
-//               required
-//               className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-//             />
-//           </div>
-
-//           <div>
-//             <label className="block mb-1 text-sm font-semibold text-gray-700">Password</label>
-//             <div className="relative">
-//               <input
-//                 type={showPassword ? "text" : "password"}
-//                 name="password"
-//                 placeholder="••••••••"
-//                 required
-//                 minLength="6"
-//                 className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-//               />
-//               <button
-//                 type="button"
-//                 onClick={() => setShowPassword(!showPassword)}
-//                 className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
-//               >
-//                 {showPassword ? "🙈" : "👁️"}
-//               </button>
-//             </div>
-//             <p className="text-xs text-gray-400 mt-1">Minimum 6 characters</p>
-//           </div>
-
-//           <div className="flex items-center">
-//             <input type="checkbox" id="terms" required className="w-4 h-4 mr-2 accent-blue-600" />
-//             <label htmlFor="terms" className="text-sm text-gray-600">
-//               I agree to the <a href="#" className="text-blue-600 hover:underline">Terms</a>
-//             </label>
-//           </div>
-
-//           <button
-//             type="submit"
-//             className="w-full py-3 text-white font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.02] transition-all"
-//           >
-//             Create Account
-//           </button>
-
-//           <div className="flex justify-center items-center my-4">
-//             <div className="border-t w-full border-gray-300" />
-//             <span className="px-3 text-xs text-gray-500">OR</span>
-//             <div className="border-t w-full border-gray-300" />
-//           </div>
-
-//           {/* Social Login */}
-//           <div className="grid grid-cols-2 gap-3">
-//             <button
-//               type="button"
-//               className="border-2 border-gray-200 rounded-xl py-2 hover:bg-gray-100 text-sm font-medium"
-//             >
-//               Google
-//             </button>
-//             <button
-//               type="button"
-//               className="border-2 border-gray-200 rounded-xl py-2 hover:bg-gray-100 text-sm font-medium"
-//             >
-//               GitHub
-//             </button>
-//           </div>
-
-//           <p className="text-center text-sm text-gray-600 mt-4">
-//             Already have an account?
-//             <Link to="/login" className="text-blue-600 hover:underline ml-1">Sign in</Link>
-//           </p>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Register;
-
-
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../utils/axiosConfig"; // ✅ import axios instance
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { UserContext } from "../context/UserContext";
+import api from "../utils/axiosConfig";
+import { PiggyBank, BarChart3, TrendingUp } from "lucide-react";
 
-const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
+export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  
-  const { loginUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const { loginUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
-
     try {
-      // ✅ send data to backend
-      const res = await api.post("/user/register", {
-        username,
-        email,
-        password,
-      });
-
+      const res = await api.post("/user/register", { username, email, password });
       if (res.data.success) {
-        // ✅ auto-login user after registration
         loginUser(res.data.user);
-        navigate("/"); // redirect to dashboard
-      } else {
-        setError(res.data.message || "Registration failed");
-      }
+        navigate("/dashboard");
+      } else setError(res.data.message || "Registration failed");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Error during registration");
-    } finally {
-      setLoading(false);
+      setError(err.response?.data?.message || "Error registering");
     }
   };
 
   return (
-    <div className="animated-gradient min-h-screen flex items-center justify-center px-4 py-8 relative overflow-hidden">
-      {/* Floating Blobs */}
-      <div className="fixed top-20 left-10 w-32 h-32 bg-white/10 rounded-full blur-3xl animate-bounce" />
-      <div className="fixed bottom-20 right-10 w-40 h-40 bg-purple-300/20 rounded-full blur-3xl animate-pulse" />
-      <div className="fixed top-1/2 right-1/4 w-24 h-24 bg-blue-300/20 rounded-full blur-3xl animate-bounce" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-indigo-500 text-white px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="w-full max-w-5xl bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
+      >
+        {/* LEFT SIDE (Visual) */}
+        <div className="md:w-1/2 flex flex-col justify-center items-center text-center p-10 bg-gradient-to-br from-pink-600 to-purple-700 text-white">
+          <h2 className="text-4xl font-extrabold mb-3">Create Your Account</h2>
+          <p className="text-pink-100 mb-10 max-w-sm">
+            Join PaisaGraph today — your smart finance companion to manage money
+            and grow your savings.
+          </p>
 
-      {/* Card */}
-      <div className="w-full max-w-md bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-8 sm:p-10 relative z-10">
-        <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-              />
-            </svg>
+          {/* Floating Icons */}
+          <div className="flex gap-10">
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+              className="bg-white text-pink-600 p-4 rounded-full shadow-lg"
+            >
+              <PiggyBank size={32} />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3, delay: 0.4 }}
+              className="bg-white text-pink-600 p-4 rounded-full shadow-lg"
+            >
+              <BarChart3 size={32} />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3, delay: 0.8 }}
+              className="bg-white text-pink-600 p-4 rounded-full shadow-lg"
+            >
+              <TrendingUp size={32} />
+            </motion.div>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Create Account
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">Join us to track your finances</p>
         </div>
 
-        {/* ✅ React-controlled form (no reload) */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block mb-1 text-sm font-semibold text-gray-700">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              placeholder="johndoe"
-              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 text-sm font-semibold text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="john.doe@example.com"
-              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 text-sm font-semibold text-gray-700">Password</label>
-            <div className="relative">
+        {/* RIGHT SIDE (Form) */}
+        <div className="md:w-1/2 p-10 bg-white flex flex-col justify-center text-gray-800">
+          <h2 className="text-3xl font-bold text-center mb-6 text-pink-700">
+            Register on PaisaGraph
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-pink-700">
+                Username
+              </label>
               <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
-                minLength="6"
-                className="w-full p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full p-3 rounded-xl border-2 border-pink-200 bg-pink-50 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all"
+                placeholder="Enter username"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
-              >
-                {showPassword ? "🙈" : "👁️"}
-              </button>
             </div>
-          </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-pink-700">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full p-3 rounded-xl border-2 border-pink-200 bg-pink-50 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all"
+                placeholder="Enter email"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 text-white font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.02] transition-all"
-          >
-            {loading ? "Creating..." : "Create Account"}
-          </button>
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-pink-700">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full p-3 rounded-xl border-2 border-pink-200 bg-pink-50 focus:bg-white focus:ring-2 focus:ring-pink-500 outline-none transition-all"
+                  placeholder="Enter password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-4 top-3 text-gray-400 hover:text-pink-600"
+                >
+                  {showPass ? "🙈" : "👁️"}
+                </button>
+              </div>
+            </div>
 
-          <p className="text-center text-sm text-gray-600 mt-4">
-            Already have an account?
-            <Link to="/login" className="text-blue-600 hover:underline ml-1">
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold shadow-md hover:scale-[1.03] transition-transform"
+            >
+              Create Account
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-gray-600 mt-6">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-pink-600 font-medium hover:underline"
+            >
               Sign in
             </Link>
           </p>
-        </form>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
-};
-
-export default Register;
+}
