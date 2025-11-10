@@ -52,7 +52,9 @@ function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
         <TransactionForm onAdd={handleAddTransaction} />
         <div className="lg:col-span-2">
-          <TransactionList transactions={transactions} />
+          {/* <TransactionList transactions={transactions} /> */}
+          <TransactionList transactions={transactions} onChange={loadAll} />
+
         </div>
       </div>
     </div>
