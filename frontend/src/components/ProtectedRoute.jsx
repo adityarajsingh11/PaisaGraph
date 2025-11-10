@@ -3,14 +3,16 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
+
+  if (loading) {
+    return <div className="text-center mt-20 text-gray-500">Loading...</div>;
+  }
 
   if (!user) {
-    // Redirect to login if user is not authenticated
     return <Navigate to="/login" replace />;
   }
 
-  // Otherwise, show the protected page
   return children;
 };
 
