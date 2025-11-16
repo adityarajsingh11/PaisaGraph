@@ -5,6 +5,8 @@ import TransactionForm from "../components/TransactionForm";
 import TransactionList from "../components/TransactionList";
 import SpendingGraph from "../components/SpendingGraph";
 import GraphSection from "../components/GraphSection";
+import ExportButtons from "../components/ExportButtons";
+
 import api from "../utils/axiosConfig";
 
 function Dashboard() {
@@ -92,6 +94,7 @@ function Dashboard() {
 
   {/* LEFT: Form - fixed width */}
   <div className="h-full">
+
     <TransactionForm onAdd={handleAddTransaction} />
   </div>
 
@@ -105,6 +108,7 @@ function Dashboard() {
 
       {/* TRANSACTION TABLE */}
       <div className="mt-8">
+        <ExportButtons transactions={tableData} />
         <TransactionList transactions={tableData} onChange={loadAll} />
       </div>
     </div>
