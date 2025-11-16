@@ -67,7 +67,7 @@ function TransactionForm({ onAdd }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 shadow-lg rounded-xl space-y-4 border border-gray-200"
+      className="bg-white p-6 shadow-lg rounded-xl space-y-4 border border-gray-200 h-full flex flex-col"
     >
       <h2 className="text-lg font-semibold text-gray-800 text-center">
         Add Transaction
