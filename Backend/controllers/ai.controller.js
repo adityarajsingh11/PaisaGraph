@@ -49,7 +49,7 @@ export const getSmartInsights = async (req, res) => {
 
     const transactions = await Transaction.find({ userId }).sort({ date: 1 });
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
         You are a financial analytics AI for an Indian user.
