@@ -8,17 +8,25 @@ export const askAI = async (req, res) => {
   try {
     const { question } = req.body;
 
-    const transactions = await Transaction.find().sort({ date: 1 });
+    const userId = req.user._id;
+
+    const transactions = await Transaction.find({ userId }).sort({ date: 1 });
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
-      You are a financial assistant AI.
-      User Question: ${question}
-      User Transactions: ${JSON.stringify(transactions)}
-      Use **only** this data.
-      Answer short + useful.
+        You are a personal finance AI assistant for an Indian user.
+        Always follow these rules:
+        - All currency must be in ₹ (Indian Rupees), NEVER $.  
+        - Keep answers short and clear.
+        - Use user's transaction data only.
+        - If category names look similar (e.g., Food, foood), treat them as same.
+
+        User Question: ${question}
+
+        User's Transactions: ${JSON.stringify(transactions)}
     `;
+
 
     const result = await model.generateContent(prompt);
 
@@ -37,18 +45,25 @@ export const askAI = async (req, res) => {
 // 📊 SMART INSIGHTS
 export const getSmartInsights = async (req, res) => {
   try {
-    const transactions = await Transaction.find().sort({ date: 1 });
+   const userId = req.user._id;
+
+    const transactions = await Transaction.find({ userId }).sort({ date: 1 });
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-pro" });
 
     const prompt = `
-      You are a finance analytics engine.
-      Analyze the user's spending pattern.
+        You are a financial analytics AI for an Indian user.
+        Important Rules:
+        - Always use currency symbol "₹" (Indian Rupees), never use "$".
+        - Keep insights short, crisp and helpful.
+        - Output EXACTLY 5 bullet points.
+        - Analyze trends, unusual spending, category-wise spikes, saving behaviour etc.
 
-      Transactions: ${JSON.stringify(transactions)}
+        Transactions: ${JSON.stringify(transactions)}
 
-      Write EXACTLY 5 bullet-point insights.
+        Now generate 5 smart insights in bullet points.
     `;
+
 
     const result = await model.generateContent(prompt);
 
