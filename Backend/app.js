@@ -11,6 +11,9 @@ import indexRoutes from "./routes/index.routes.js";
 
 // ✅ Import the middleware correctly
 import protect from "./middleware/auth.js";
+import aiRoutes from "./routes/ai.routes.js";
+
+
 
 dotenv.config();
 connect();
@@ -31,6 +34,7 @@ app.use(cookieParser());
 // ✅ Public routes (no auth needed)
 app.use("/api/user", userRoutes);
 app.use("/api", indexRoutes);
+app.use("/api/ai", aiRoutes);
 
 // ✅ Protected routes
 app.use("/api/transactions", protect, transactionRoutes);

@@ -6,6 +6,8 @@ import TransactionList from "../components/TransactionList";
 import SpendingGraph from "../components/SpendingGraph";
 import GraphSection from "../components/GraphSection";
 import ExportButtons from "../components/ExportButtons";
+import SmartInsights from "../components/SmartInsights";
+import AIChat from "../components/AIChat";
 
 import api from "../utils/axiosConfig";
 
@@ -109,6 +111,9 @@ function Dashboard() {
       {/* TRANSACTION TABLE */}
       <div className="mt-8">
         <ExportButtons transactions={tableData} />
+        <SmartInsights />
+        <AIChat />
+
         <TransactionList transactions={tableData} onChange={loadAll} />
       </div>
     </div>
