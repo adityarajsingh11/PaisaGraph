@@ -1,24 +1,62 @@
-# ⚡ PaisaGraph — Personal Finance Tracker
+# ⚡ PaisaGraph — Your Interactive AI-Powered Finance Buddy
 
 ![React](https://img.shields.io/badge/Frontend-React_19-blue?logo=react)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen?logo=mongodb)
+![Gemini](https://img.shields.io/badge/AI-Gemini_1.5_Pro-purple?logo=google)
 ![TailwindCSS](https://img.shields.io/badge/UI-TailwindCSS-38B2AC?logo=tailwindcss)
 ![License](https://img.shields.io/badge/License-MIT-yellow?logo=open-source-initiative)
 
-**PaisaGraph** is a full-stack personal finance tracker that helps users log transactions, visualize spending with interactive graphs, export reports, and manage budgets — built with **React 19**, **Node.js**, **Express**, and **MongoDB**.
+**PaisaGraph** is your interactive, AI-powered finance buddy that not only tracks expenses but talks to you, guides you, and explains your financial habits in a friendly way. that helps users manage expenses, visualize spending patterns, generate insights, and make smarter decisions — now enhanced with **Gemini AI** for **Financial Insights** and **AI Assistant Support**.
 
 ---
 
 ## 🌟 Key Features
 
-* 📊 **Interactive Spending Graphs** — Visualize income & expenses over time using Recharts.
-* ➕ **Transaction Management** — Add, edit, and delete income/expense entries.
-* 📁 **Export Reports** — Export transactions to PDF and Excel (jsPDF, xlsx).
-* 🔐 **Authentication** — JWT-based auth with password hashing (bcrypt).
-* 🧾 **Validation & Logging** — Request validation and logging with express-validator and morgan.
-* 🤖 **AI Utilities (optional)** — Backend includes `@google/generative-ai` for future AI features.
-* ✨ **Modern UI/UX** — Built with TailwindCSS and Framer Motion animations.
+### 📊 **Spending Analytics & Dashboards**
+
+Interactive charts built with **Recharts** to understand income, expenses, trends, and monthly summaries.
+
+### ➕ **Transaction Management**
+
+Add, edit, delete, filter and export transactions easily.
+
+### 🤖 **Gemini AI Integration**
+
+Powered by **Gemini 1.5 Pro**, PaisaGraph includes:
+
+#### **2️⃣ AI Financial Insights**
+
+Gemini automatically analyzes your transactions to generate:
+
+* Spending patterns
+* Budget warnings
+* Top categories
+* Trend changes
+* Monthly financial summaries
+
+#### **3️⃣ AI Chat Assistant**
+
+A personal finance AI assistant that can answer questions like:
+
+* “Is my spending increasing this month?”
+* “Top 5 expenses?”
+* “Give me financial suggestions?”
+
+### 📁 **Export Reports**
+
+Export data as:
+
+* PDF (using jsPDF + AutoTable)
+* Excel (using XLSX)
+
+### 🔐 **Secure Authentication**
+
+JWT token-based secure login/register system.
+
+### ✨ **Modern UI/UX**
+
+TailwindCSS + Framer Motion for clean animations and smooth interactions.
 
 ---
 
@@ -27,189 +65,175 @@
 ### 🖥️ Frontend
 
 * React 19
-* Vite (development)
+* Vite
 * TailwindCSS 4
 * Framer Motion
 * React Router v7
-* Recharts (charts)
-* Axios (API requests)
-* jsPDF + jspdf-autotable (PDF export)
-* xlsx (Excel export)
-* lucide-react (icons)
+* Axios
+* Recharts
+* jsPDF, AutoTable, XLSX
+* Lucide Icons
 
 ### ⚙️ Backend
 
 * Node.js + Express
 * MongoDB + Mongoose
-* JWT + Bcrypt for authentication
-* Express-Validator for input validation
-* Morgan for logging
-* CORS & cookie-parser
-* Optional: `@google/generative-ai` for AI features
+* JWT Authentication
+* bcrypt for password hashing
+* cookie-parser, cors, morgan
+* express-validator
+* @google/generative-ai (Gemini)
+
+---
+
+## 🤖 Gemini AI — How It Works
+
+### **AI Insight Engine**
+
+Backend sends user's monthly summary to Gemini to generate:
+
+* Expense spikes
+* Category insights
+* Trends
+* Savings recommendations
+
+### **AI Chat Assistant**
+
+User types queries → PaisaGraph sends context + transactions to Gemini → AI replies in natural language.
 
 ---
 
 ## 🗂️ Folder Structure
 
-### Frontend
+### **Frontend**
 
 ```
 frontend/
 ├── public/
 │   └── index.html
+│
 ├── src/
-│   ├── assets/         # images, icons
-│   ├── components/     # reusable UI components
-│   ├── context/        # auth & user context
-│   ├── hooks/          # custom hooks
-│   ├── screens/        # pages (Dashboard, Login, Register, Profile)
-│   ├── routes/         # App routes
-│   ├── config/         # axios, socket config
-│   ├── utils/          # helpers (formatters, validators)
+│   ├── assets/                     # images/icons
+│
+│   ├── components/
+│   │   ├── AIChat.jsx              # AI Chat UI
+│   │   ├── graph/
+│   │   │   ├── GraphSection.jsx
+│   │   │   └── SpendingGraph.jsx
+│   │   ├── ExportButtons.jsx
+│   │   ├── SmartInsights.jsx       # AI Insights UI
+│   │   ├── SummaryCards.jsx
+│   │   ├── TransactionList.jsx
+│   │   └── TransactionForm.jsx
+│
+│   ├── context/
+│   │   └── UserContext.jsx
+│
+│   ├── pages/
+│   │   ├── Dashboard.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Home.jsx
+│   │   └── Profile.jsx
+│
+│   ├── utils/
+│   │   ├── axiosConfig.js
+│   │   ├── exportPDF.js
+│   │   ├── exportExcel.js
+│   │   └── exportCSV.js
+│
 │   ├── App.jsx
 │   └── main.jsx
-└── package.json
+│
+├── package.json
+└── index.css
+
 ```
 
-### Backend
+### **Backend**
 
 ```
 backend/
-├── controllers/       # request handlers
-├── models/            # Mongoose schemas (User, Transaction, Category)
-├── routes/            # Express routes (auth, transactions, reports)
-├── middleware/        # auth, error handling
-├── utils/             # helpers (jwt, formatters)
-├── config/            # db connection, env loader
-├── app.js             # Express app
-├── server.js          # server entry (or start with `node app.js`)
-└── package.json
+├── config/
+│   └── db.js                # MongoDB connection
+│
+├── controllers/
+│   ├── auth.controller.js   # register/login
+│   ├── transaction.controller.js
+│   └── ai.controller.js     # Gemini AI (Insights + Chat)
+│
+├── middleware/
+│   └── auth.js              # JWT verification
+│
+├── models/
+│   ├── User.js
+│   └── Transaction.js
+│
+├── routes/
+│   ├── auth.routes.js
+│   ├── transaction.routes.js
+│   └── ai.routes.js         # AI routes
+│
+├── utils/
+│   ├── generateToken.js
+│   └── helpers.js
+│
+├── .env
+├── app.js                   # Express app setup
+└── server.js                # (optional) start file
+
 ```
 
 ---
 
-## 🧰 Prerequisites
+## ⚙️ Installation Guide
 
-* Node.js v18 or later
-* npm (or pnpm)
-* MongoDB (local or Atlas)
-* .env file with required environment variables
+### 1️⃣ Clone Project
 
----
-
-## ⚙️ Installation & Setup
-
-Follow these steps to run PaisaGraph locally.
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/yourusername/PaisaGraph.git
+```
+git clone https://github.com/adityarajsingh11/PaisaGraph.git
 cd PaisaGraph
 ```
 
-### 2. Backend Setup
+### 2️⃣ Backend Setup
 
-```bash
+```
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` folder with the following variables:
+### Create `.env` file:
 
 ```
 PORT=5000
-MONGO_URI=your_mongo_connection_string
+MONGO_URI=your_mongo_uri
 JWT_SECRET=your_jwt_secret
-GOOGLE_API_KEY=your_google_api_key    # optional, for AI features
+GEMINI_API_KEY=your_google_gemini_key
 ```
 
-Start the backend server:
+### Start Backend
 
-```bash
-# from backend/
+```
 npx nodemon app.js
-# or
-node app.js
 ```
 
-> If your entry file is `server.js`, run `node server.js` instead.
+### 3️⃣ Frontend Setup
 
-### 3. Frontend Setup
-
-```bash
+```
 cd ../frontend
 npm install
-```
-
-Start the frontend:
-
-```bash
 npm run dev
 ```
 
-### 4. Access the App
+### URLs
 
 ```
 Frontend → http://localhost:5173
-Backend  → http://localhost:5000
+Backend → http://localhost:5000/api
 ```
 
 ---
 
-## 🚀 Usage Guide
 
-1. Register or Login
-2. Add categories and transactions
-3. View spending graphs and summaries on the Dashboard
-4. Export monthly reports to PDF / Excel
-5. (Optional) Enable AI features if API key provided
 
----
-
-## 🧪 API Endpoints (Example)
-
-> Base URL: `http://localhost:5000/api`
-
-* `POST /auth/register` — register a new user
-* `POST /auth/login` — login and receive JWT
-* `GET /transactions` — get user transactions (protected)
-* `POST /transactions` — create a transaction (protected)
-* `PUT /transactions/:id` — update a transaction (protected)
-* `DELETE /transactions/:id` — delete a transaction (protected)
-* `GET /reports/monthly` — monthly summary & aggregates (protected)
-
----
-
-## ♻️ Common Scripts
-
-### Backend
-
-```bash
-# start with nodemon (dev)
-npx nodemon app.js
-# or
-node app.js
-```
-
-### Frontend
-
-```bash
-npm run dev
-npm run build
-npm run preview
-```
-
----
-
-## 🪪 License
-
-This project is available under the **MIT License**. Feel free to use and modify.
-
----
-
-## 💬 Contact
-
-If you want me to expand this README (add screenshots, CI/CD, deployment steps, example .env, or a complete API doc), tell me what you'd like next and I'll update the file.
-
-**Author:** You (PaisaGraph project)
+If you want, I can add **screenshots section, API examples, Gemini prompt design, or deployment guide** — bus batao!
