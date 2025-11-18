@@ -234,7 +234,31 @@ Backend → http://localhost:5000/api
 
 ---
 ## 🪪 License
-This project is licensed under the **MIT License** — feel free to use and modify.
+
+### 📜 Open Source & Free Forever
+
+PaisaGraph is proudly released under the **MIT License**, which means:
+
+✅ You can use it anywhere — personal or commercial projects
+
+✅ You can modify, enhance, or extend it freely
+
+✅ You can distribute your own versions
+
+🔓 No restrictions. No complications. Pure open‑source freedom.
+
+> 💡 *If you build something amazing on top of PaisaGraph, feel free to share it with the community!*
+
+---
+
+## 🚀 Usage Flow
+
+1. Login / Register
+2. Add transactions
+3. View dashboard insights
+4. Ask AI questions
+5. Export data (PDF / Excel)
+6. Receive Gemini-powered financial analysis
 
 ---
 
