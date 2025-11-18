@@ -233,7 +233,16 @@ Backend → http://localhost:5000/api
 ```
 
 ---
+## 🪪 License
+This project is licensed under the **MIT License** — feel free to use and modify.
 
+---
 
+## 💬 Contact
 
-If you want, I can add **screenshots section, API examples, Gemini prompt design, or deployment guide** — bus batao!
+👨‍💻 **Aditya Raj Singh**  
+📧 Email: [9555adityarajsingh@gmail.com](mailto:9555adityarajsingh@gmail.com)  
+🐙 GitHub: [@adityarajsingh11](https://github.com/adityarajsingh11)  
+💼 LinkedIn: [@adityarajsingh117](https://linkedin.com/in/adityarajsingh117)  
+🐦 X (Twitter): [@_op_aditya_11](https://x.com/_op_aditya_11)
+
