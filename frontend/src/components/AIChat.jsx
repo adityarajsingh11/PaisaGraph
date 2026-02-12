@@ -1,50 +1,4 @@
-// import { useState } from "react";
-// import api from "../utils/axiosConfig";
-
-// export default function AIChat() {
-//   const [question, setQuestion] = useState("");
-//   const [answer, setAnswer] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   const askAI = async () => {
-//     try {
-//       setLoading(true);
-//       const res = await api.post("/ai/chat", { question });
-//       setAnswer(res.data.answer);
-//     } catch (error) {
-//       setAnswer("❌ AI unable to respond right now.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="bg-white p-6 rounded-xl shadow mt-6 border">
-//       <h2 className="text-xl font-semibold">AI Finance Advisor</h2>
-
-//       <textarea
-//         className="w-full border p-3 mt-3 rounded-lg bg-gray-50 focus:ring-2 focus:ring-indigo-400 outline-none"
-//         placeholder="Ask anything about your expenses..."
-//         value={question}
-//         onChange={(e) => setQuestion(e.target.value)}
-//       />
-
-//       <button
-//         onClick={askAI}
-//         className="mt-3 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 shadow"
-//       >
-//         {loading ? "Thinking..." : "Ask AI"}
-//       </button>
-
-//       <div className="mt-4 text-gray-900 whitespace-pre-wrap bg-gray-50 p-3 rounded-lg">
-//         {answer}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-import { useState } from "react";
+import { useState, useRef } from "react";
 import api from "../utils/axiosConfig";
 import { Sparkles, SendHorizonal } from "lucide-react";
 import { motion } from "framer-motion";
@@ -54,17 +8,32 @@ export default function AIChat() {
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // last question ref (quota + spam protection)
+  const lastQuestionRef = useRef("");
+
   const askAI = async () => {
-    if (!question.trim()) return;
+    // ❌ empty / duplicate / spam protection
+    if (!question.trim() || loading) return;
+    if (question === lastQuestionRef.current) return;
 
     try {
       setLoading(true);
       setAnswer("");
 
-      const res = await api.post("/ai/chat", { question });
-      setAnswer(res.data.answer);
+      lastQuestionRef.current = question;
+
+      const res = await api.post(
+        "/ai/chat",
+        { question },
+        {
+          withCredentials: true, // 🔥 VERY IMPORTANT (JWT cookie)
+        }
+      );
+
+      setAnswer(res.data.answer || "⚠️ No response from AI.");
     } catch (error) {
-      setAnswer("❌ AI unable to respond right now.");
+      console.error("AI CHAT ERROR:", error);
+      setAnswer("❌ AI is temporarily unavailable. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -86,22 +55,26 @@ export default function AIChat() {
 
       {/* Textarea */}
       <textarea
-        className="w-full border border-gray-300 p-3 rounded-lg bg-gray-50 
-                   focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none transition min-h-[90px]"
-        placeholder="Ask anything about your expenses, savings, planning..."
+        className="w-full border border-gray-300 p-3 rounded-lg bg-gray-50
+                   focus:bg-white focus:ring-2 focus:ring-indigo-500
+                   outline-none transition min-h-[90px]"
+        placeholder="Ask about expenses, savings, spending patterns..."
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
+        disabled={loading}
       />
 
       {/* Ask button */}
       <button
         onClick={askAI}
         disabled={loading}
-        className="mt-4 flex items-center justify-center gap-2 bg-indigo-600 
-                   text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 transition shadow 
+        className="mt-4 flex items-center justify-center gap-2
+                   bg-indigo-600 text-white px-4 py-2.5 rounded-lg
+                   hover:bg-indigo-700 transition shadow
                    disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {loading ? "Thinking..." : "Ask AI"} <SendHorizonal size={18} />
+        {loading ? "Thinking..." : "Ask AI"}
+        <SendHorizonal size={18} />
       </button>
 
       {/* Result */}
@@ -116,7 +89,7 @@ export default function AIChat() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-indigo-50 border border-indigo-200 text-gray-800 
+            className="bg-indigo-50 border border-indigo-200 text-gray-800
                        p-4 rounded-xl whitespace-pre-wrap shadow-sm"
           >
             {answer}

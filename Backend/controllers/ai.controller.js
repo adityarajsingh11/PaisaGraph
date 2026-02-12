@@ -96,7 +96,7 @@ export const askAI = async (req, res) => {
     const transactions = await Transaction.find({ userId }).sort({ date: 1 });
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
     });
 
 //     const prompt = `
@@ -159,7 +159,7 @@ export const getSmartInsights = async (req, res) => {
     const transactions = await Transaction.find({ userId }).sort({ date: 1 });
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
     });
 
 //     const prompt = `
@@ -208,6 +208,20 @@ Now generate EXACTLY 5 smart insights in bullet points.
 
   } catch (err) {
     console.error("INSIGHTS ERROR:", err);
+    
+     // 🔥 MOST IMPORTANT PART
+    if (err?.status === 429) {
+      return res.json({
+        insights: `
+      • AI quota exhausted
+      • Insights temporarily disabled
+      • Enable billing to activate AI
+      • Core finance features working
+      • Data is completely safe
+      `,
+      });
+    }
+
     res.status(500).json({ message: "Insights error" });
   }
 };

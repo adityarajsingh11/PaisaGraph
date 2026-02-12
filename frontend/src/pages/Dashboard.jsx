@@ -136,10 +136,14 @@ export default function Dashboard() {
 
         {/* EXPORT + TABLE */}
         <div className="mt-12">
-          <ExportButtons transactions={tableData} />
+          
 
           <div className="mt-5">
             <TransactionList transactions={tableData} onChange={loadAll} />
+          </div>
+
+          <div className="my-4">
+            <ExportButtons transactions={tableData} />
           </div>
         </div>
 
